@@ -427,7 +427,7 @@ interface Column {
   section: keyof typeof SECTION_COLORS
 }
 
-const BASE_COLUMNS: Column[] = [
+const BASIC_COLUMNS: Column[] = [
   // Customer Information
   { key: 'name', label: 'Customer Name / Company Name', shortLabel: 'Customer Name', tooltip: 'Company or brand name', width: 200, section: 'customerInfo' },
   { key: 'overview', label: 'Business Overview', shortLabel: 'Overview', tooltip: 'Brief description of the business', width: 240, section: 'customerInfo' },
@@ -441,7 +441,9 @@ const BASE_COLUMNS: Column[] = [
   { key: 'phone', label: 'Phone / WhatsApp Number', shortLabel: 'Phone', tooltip: 'Contact phone number', width: 160, section: 'contactDetails' },
   { key: 'linkedin', label: 'LinkedIn Profile', shortLabel: 'LinkedIn', tooltip: 'LinkedIn URL', width: 200, section: 'contactDetails' },
   { key: 'website', label: 'Website URL', shortLabel: 'Website', tooltip: 'Company website', width: 180, section: 'contactDetails' },
-  // Professional Drivers
+]
+
+const PROFESSIONAL_DRIVER_COLUMNS: Column[] = [
   { key: 'criteria', label: 'Key Buying Criteria', shortLabel: 'Buying Criteria', tooltip: 'Music Licensing Compliance, Brand-Fit Playlists, Multi-Location Control, Easy Scheduling, Low Cost, Local Music Support, Centralized Reporting, Customer Experience Enhancement', width: 260, section: 'professionalDrivers' },
   { key: 'painPoints', label: 'Key Pain Points', shortLabel: 'Pain Points', tooltip: 'Copyright Risk, Generic Playlists, Manual Music Control, Inconsistent Brand Experience, Limited Arabic Content, High Licensing Complexity, Poor Audio Quality, Lack of Remote Management', width: 260, section: 'professionalDrivers' },
   { key: 'triggers', label: 'Upcoming Triggers and Initiatives', shortLabel: 'Triggers', tooltip: 'New Store Openings, Hotel Renovations, Mall Expansions, Franchise Growth, Brand Refresh Programs, Guest Experience Upgrades, Digital Customer Experience Initiatives', width: 260, section: 'professionalDrivers' },
@@ -462,8 +464,9 @@ const PREMIUM_EXTRA_COLUMNS: Column[] = [
 ]
 
 function getColumns(prop: PropositionType): Column[] {
-  if (prop === 'premium') return [...BASE_COLUMNS, ...PREMIUM_EXTRA_COLUMNS]
-  return BASE_COLUMNS
+  if (prop === 'basic') return BASIC_COLUMNS
+  if (prop === 'advance') return [...BASIC_COLUMNS, ...PROFESSIONAL_DRIVER_COLUMNS]
+  return [...BASIC_COLUMNS, ...PROFESSIONAL_DRIVER_COLUMNS, ...PREMIUM_EXTRA_COLUMNS]
 }
 
 function getSectionGroups(columns: Column[]) {
@@ -657,7 +660,7 @@ export function CustomerDatabaseTables() {
   const [searchTerm, setSearchTerm] = useState('')
 
   const activeConfig = PROPOSITIONS.find(p => p.id === activeProp)!
-  const columnCount = activeProp === 'premium' ? BASE_COLUMNS.length + PREMIUM_EXTRA_COLUMNS.length : BASE_COLUMNS.length
+  const columnCount = getColumns(activeProp).length
 
   return (
     <div className="space-y-6">
@@ -701,7 +704,7 @@ export function CustomerDatabaseTables() {
       >
         <span className="font-semibold">{activeConfig.label}:</span> {activeConfig.desc}
         <span className="ml-4 text-white/70">
-          {activeProp === 'premium' ? `${BASE_COLUMNS.length + PREMIUM_EXTRA_COLUMNS.length + 1} columns` : `${BASE_COLUMNS.length + 1} columns`}
+          {columnCount + 1} columns
         </span>
       </div>
 
