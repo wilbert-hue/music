@@ -1,63 +1,53 @@
 {
   "Global": {
-    "By Type": {
-      "Sub-Normothermic Perfusion (20–34°C)": {},
-      "Warm or Normothermic Perfusion (35–37°C)": {}
+    "By Service Type": {
+      "Licensed Background Music Services": {},
+      "In-Store Radio / Branded Radio": {},
+      "Audio Branding / Sonic Branding": {},
+      "Music Curation & Playlist Management": {},
+      "Audio Advertising & Promotional Announcements": {},
+      "Music-on-Hold / Telephony Audio": {},
+      "Background Music System Integration": {},
+      "Others (Custom Sound Design & Others)": {}
     },
-    "By Organ Type": {
-      "Liver": {},
-      "Heart": {},
-      "Lung": {},
-      "Kidney": {},
-      "Others (Pancreas, Small bowel / Intestine, Composite Tissues / Limb Perfusion (emerging use cases))": {}
+    "By Content Type": {
+      "Licensed Commercial Music": {},
+      "Royalty-Free / Production Music": {},
+      "Custom Branded Playlists": {},
+      "Radio-Style Music Feeds": {},
+      "Sonic Identity / Original Brand Music": {},
+      "AI-Generated / Adaptive Background Music": {},
+      "Others (Regional Instrumental Music & Others)": {}
     },
-    "Application / Use Case": {
-      "Organ Preservation": {},
-      "Viability Assessment": {},
-      "Physiologic Transport": {},
-      "Reconditioning Marginal Organs": {},
-      "Others (Research Use / Protocol development)": {}
+    "By Application / End User": {
+      "Retail Stores & Supermarkets": {},
+      "Restaurants, Cafes & Bars": {},
+      "Hotels & Resorts": {},
+      "Shopping Malls": {},
+      "Corporate Offices & Workspaces": {},
+      "Gyms, Spas & Wellness Centers": {},
+      "Healthcare Facilities": {},
+      "Airports & Transportation Hubs": {},
+      "Entertainment Venues": {},
+      "Others (Educational Institutions & Public Facilities, etc.)": {}
     },
-    "By End User": {
-      "Hospitals & Clinics": {},
-      "Specialty Clinic/Centers": {},
-      "Transplant Centers": {},
-      "Others (Research Institutes/Centers, Organ Procurement Organizations, etc.)": {}
+    "By Business Type": {
+      "Multi-Location Chains": {},
+      "Franchise Networks": {},
+      "Enterprise / Regional Brands": {},
+      "Single-Location Businesses": {},
+      "Hospitality Groups": {},
+      "Retail Groups": {},
+      "Others (Educational Institutions & Public Facilities, etc.)": {}
     },
     "By Region": {
-      "North America": {
-        "U.S.": {},
-        "Canada": {}
-      },
-      "Europe": {
-        "U.K.": {},
-        "Germany": {},
-        "Italy": {},
-        "France": {},
-        "Spain": {},
-        "Russia": {},
-        "Rest of Europe": {}
-      },
-      "Asia Pacific": {
-        "China": {},
-        "India": {},
-        "Japan": {},
-        "South Korea": {},
-        "ASEAN": {},
-        "Australia": {},
-        "Rest of Asia Pacific": {}
-      },
-      "Latin America": {
-        "Brazil": {},
-        "Argentina": {},
-        "Mexico": {},
-        "Rest of Latin America": {}
-      },
-      "Middle East & Africa": {
-        "GCC": {},
-        "South Africa": {},
-        "Rest of Middle East & Africa": {}
-      }
+      "Saudi Arabia": {},
+      "Israel": {},
+      "United Arab Emirates": {},
+      "Egypt": {},
+      "Iran": {},
+      "Iraq": {},
+      "Rest of MENA": {}
     }
   }
 }

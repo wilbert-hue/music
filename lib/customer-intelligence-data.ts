@@ -18,37 +18,38 @@ export interface CustomerIntelligenceData {
   customers: Customer[]
 }
 
-// Realistic customer name generators by type
+// Realistic customer name generators by application type
 const residentialNames = [
-  'Solar Home', 'Rooftop Solar', 'Green Energy Home', 'SunPower Residential',
-  'HomeGrid Solar', 'Bright Home Energy', 'SolarEdge Home', 'EcoHome Solar',
-  'Smart Home Solar', 'Residential Power'
+  'Al Noor Retail', 'Gulf Supermarket', 'Oasis Mall Store', 'City Center Shop',
+  'Metro Grocery', 'Fresh Market', 'Grand Hypermarket', 'Desert Rose Retail',
+  'Sunrise Superstore', 'Crescent Mart'
 ]
 
 const commercialNames = [
-  'Industrial Solar Park', 'Commercial Solar Solutions', 'Business Energy Center',
-  'Solar Power Plant', 'Corporate Solar Hub', 'Enterprise Energy', 'Solar Campus',
-  'Factory Solar System'
+  'Grand Hospitality Group', 'Luxury Suites Hotel', 'Desert Inn Resort', 'Palm Hotel',
+  'Oasis Restaurant Chain', 'Gulf Café Network', 'Spice Route Dining', 'Al Fanar Group'
 ]
 
 const utilityNames = [
-  'Grid-Scale Solar Farm', 'Utility Solar Station', 'Power Grid Solar',
-  'Megawatt Solar Park', 'Regional Solar Utility', 'Solar Generation Station',
-  'Grid Solar Complex', 'Utility Power Station'
+  'Regional Media Corp', 'Gulf Entertainment Hub', 'National Broadcast Center',
+  'Meridian Events Arena', 'Capital Convention Center', 'Al Waha Fitness Club',
+  'Wellness Spa Network', 'Corporate Tower Complex'
 ]
 
 const locationSuffixes = [
-  'North', 'South', 'East', 'West', 'Central', 'Metro', 'Downtown', 'Uptown',
-  'Riverside', 'Parkview', 'Hillside', 'Valley', 'Coastal', 'Mountain'
+  'Central', 'Downtown', 'Marina', 'Old Town', 'Business Bay', 'City Walk',
+  'Corniche', 'Tower', 'Plaza', 'Mall', 'Square', 'District'
 ]
 
 // Region-specific prefixes
 const regionPrefixes: Record<string, string[]> = {
-  'North America': ['American', 'United', 'National', 'Regional', 'Metropolitan'],
-  'Latin America': ['Latino', 'Americas', 'Continental', 'Regional', 'National'],
-  'Europe': ['European', 'Continental', 'Regional', 'National', 'Metropolitan'],
-  'Asia Pacific': ['Asia', 'Pacific', 'Regional', 'National', 'Metropolitan'],
-  'Middle East & Africa': ['Middle East', 'Regional', 'National', 'Gulf', 'African']
+  'Saudi Arabia': ['Al', 'Saudi', 'Riyadh', 'Jeddah', 'Makkah'],
+  'Israel': ['Israeli', 'Tel Aviv', 'Jerusalem', 'Haifa', 'National'],
+  'United Arab Emirates': ['UAE', 'Dubai', 'Abu Dhabi', 'Emirates', 'Gulf'],
+  'Egypt': ['Egyptian', 'Cairo', 'Alexandria', 'Nile', 'National'],
+  'Iran': ['Iranian', 'Tehran', 'Persian', 'Regional', 'National'],
+  'Iraq': ['Iraqi', 'Baghdad', 'Basra', 'Regional', 'National'],
+  'Rest of MENA': ['Regional', 'Gulf', 'Arabian', 'National', 'MENA']
 }
 
 function generateCustomerName(region: string, endUserSegment: string, index: number): string {
@@ -57,9 +58,9 @@ function generateCustomerName(region: string, endUserSegment: string, index: num
   const location = locationSuffixes[index % locationSuffixes.length]
 
   let baseName = ''
-  if (endUserSegment === 'Residential') {
+  if (endUserSegment.includes('Retail') || endUserSegment.includes('Supermarket')) {
     baseName = residentialNames[index % residentialNames.length]
-  } else if (endUserSegment === 'Commercial and Industrial') {
+  } else if (endUserSegment.includes('Hotel') || endUserSegment.includes('Restaurant') || endUserSegment.includes('Café') || endUserSegment.includes('Cafe')) {
     baseName = commercialNames[index % commercialNames.length]
   } else {
     baseName = utilityNames[index % utilityNames.length]
@@ -83,20 +84,29 @@ function seededRandom(seed: number): () => number {
 }
 
 function generateCustomerCount(region: string, endUserSegment: string): number {
-  // Base multipliers by region (reflecting market size)
+  // Base multipliers by region (reflecting market size in MENA)
   const regionMultipliers: Record<string, number> = {
-    'North America': 1.2,
-    'Europe': 1.0,
-    'Asia Pacific': 1.3,
-    'Latin America': 0.7,
-    'Middle East & Africa': 0.6
+    'Saudi Arabia': 1.3,
+    'United Arab Emirates': 1.2,
+    'Egypt': 1.0,
+    'Israel': 0.9,
+    'Iran': 0.8,
+    'Iraq': 0.6,
+    'Rest of MENA': 0.7
   }
 
-  // Base multipliers by end user type
+  // Base multipliers by application / end user type
   const segmentMultipliers: Record<string, number> = {
-    'Residential': 1.5,              // Most common
-    'Commercial and Industrial': 1.0, // Medium
-    'Utility-scale': 0.4              // Fewer but larger projects
+    'Retail Stores & Supermarkets': 1.5,
+    'Restaurants, Cafes & Bars': 1.3,
+    'Hotels & Resorts': 1.0,
+    'Shopping Malls': 0.8,
+    'Corporate Offices & Workspaces': 0.9,
+    'Gyms, Spas & Wellness Centers': 0.7,
+    'Healthcare Facilities': 0.6,
+    'Airports & Transportation Hubs': 0.4,
+    'Entertainment Venues': 0.5,
+    'Others (Educational Institutions & Public Facilities, etc.)': 0.3
   }
 
   // Base count range
@@ -125,17 +135,23 @@ function generateCustomerCount(region: string, endUserSegment: string): number {
  */
 export function generateCustomerIntelligenceData(): CustomerIntelligenceData[] {
   const regions = [
-    'North America',
-    'Latin America',
-    'Europe',
-    'Asia Pacific',
-    'Middle East & Africa'
+    'Saudi Arabia',
+    'Israel',
+    'United Arab Emirates',
+    'Egypt',
+    'Iran',
+    'Iraq',
+    'Rest of MENA'
   ]
 
   const endUserSegments = [
-    'Residential',
-    'Commercial and Industrial',
-    'Utility-scale'
+    'Retail Stores & Supermarkets',
+    'Restaurants, Cafes & Bars',
+    'Hotels & Resorts',
+    'Shopping Malls',
+    'Corporate Offices & Workspaces',
+    'Gyms, Spas & Wellness Centers',
+    'Entertainment Venues'
   ]
 
   const data: CustomerIntelligenceData[] = []
@@ -152,8 +168,8 @@ export function generateCustomerIntelligenceData(): CustomerIntelligenceData[] {
           name: generateCustomerName(region, endUserSegment, i),
           region,
           endUserSegment,
-          type: endUserSegment === 'Residential' ? 'residential'
-                : endUserSegment === 'Commercial and Industrial' ? 'commercial'
+          type: (endUserSegment.includes('Retail') || endUserSegment.includes('Mall')) ? 'residential'
+                : (endUserSegment.includes('Hotel') || endUserSegment.includes('Restaurant') || endUserSegment.includes('Café') || endUserSegment.includes('Cafe')) ? 'commercial'
                 : 'utility'
         })
       }
@@ -317,16 +333,20 @@ export function parseCustomerIntelligenceFromData(rows: Record<string, any>[]): 
     let normalizedRegion = region || null
     if (region) {
       const lowerRegion = region.toLowerCase()
-      if (lowerRegion.includes('north america') || lowerRegion.includes('usa') || lowerRegion.includes('united states') || lowerRegion.includes('u.s.')) {
-        normalizedRegion = 'North America'
-      } else if (lowerRegion.includes('latin america') || lowerRegion.includes('south america')) {
-        normalizedRegion = 'Latin America'
-      } else if (lowerRegion.includes('europe')) {
-        normalizedRegion = 'Europe'
-      } else if (lowerRegion.includes('asia') || lowerRegion.includes('pacific')) {
-        normalizedRegion = 'Asia Pacific'
-      } else if (lowerRegion.includes('middle east') || lowerRegion.includes('africa')) {
-        normalizedRegion = 'Middle East & Africa'
+      if (lowerRegion.includes('saudi') || lowerRegion.includes('ksa')) {
+        normalizedRegion = 'Saudi Arabia'
+      } else if (lowerRegion.includes('uae') || lowerRegion.includes('emirates') || lowerRegion.includes('dubai') || lowerRegion.includes('abu dhabi')) {
+        normalizedRegion = 'United Arab Emirates'
+      } else if (lowerRegion.includes('israel')) {
+        normalizedRegion = 'Israel'
+      } else if (lowerRegion.includes('egypt')) {
+        normalizedRegion = 'Egypt'
+      } else if (lowerRegion.includes('iran')) {
+        normalizedRegion = 'Iran'
+      } else if (lowerRegion.includes('iraq')) {
+        normalizedRegion = 'Iraq'
+      } else if (lowerRegion.includes('mena') || lowerRegion.includes('middle east') || lowerRegion.includes('north africa')) {
+        normalizedRegion = 'Rest of MENA'
       } else {
         normalizedRegion = region
       }
@@ -337,20 +357,26 @@ export function parseCustomerIntelligenceFromData(rows: Record<string, any>[]): 
       for (const key in row) {
         if (key.startsWith('_')) continue
         const value = String(row[key] || '').toLowerCase()
-        if (value.includes('north america') || value.includes('usa') || value.includes('united states')) {
-          normalizedRegion = 'North America'
+        if (value.includes('saudi') || value.includes('ksa')) {
+          normalizedRegion = 'Saudi Arabia'
           break
-        } else if (value.includes('latin america') || value.includes('south america')) {
-          normalizedRegion = 'Latin America'
+        } else if (value.includes('uae') || value.includes('emirates') || value.includes('dubai')) {
+          normalizedRegion = 'United Arab Emirates'
           break
-        } else if (value.includes('europe')) {
-          normalizedRegion = 'Europe'
+        } else if (value.includes('israel')) {
+          normalizedRegion = 'Israel'
           break
-        } else if (value.includes('asia') || value.includes('pacific')) {
-          normalizedRegion = 'Asia Pacific'
+        } else if (value.includes('egypt')) {
+          normalizedRegion = 'Egypt'
           break
-        } else if (value.includes('middle east') || value.includes('africa')) {
-          normalizedRegion = 'Middle East & Africa'
+        } else if (value.includes('iran')) {
+          normalizedRegion = 'Iran'
+          break
+        } else if (value.includes('iraq')) {
+          normalizedRegion = 'Iraq'
+          break
+        } else if (value.includes('mena') || value.includes('middle east')) {
+          normalizedRegion = 'Rest of MENA'
           break
         }
       }

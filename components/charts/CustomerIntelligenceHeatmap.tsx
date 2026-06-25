@@ -181,24 +181,28 @@ export function CustomerIntelligenceHeatmap({ title, height = 600, filePath }: C
   const { regions, endUserSegments } = useMemo(() => {
     // Default regions and segments if data is not available
     const defaultRegions = [
-      'North America',
-      'Latin America',
-      'Europe',
-      'Asia Pacific',
-      'Middle East & Africa'
+      'Saudi Arabia',
+      'Israel',
+      'United Arab Emirates',
+      'Egypt',
+      'Iran',
+      'Iraq',
+      'Rest of MENA'
     ]
-    
+
     const defaultSegments = [
-      'Residential',
-      'Commercial and Industrial',
-      'Utility-scale'
+      'Retail Stores & Supermarkets',
+      'Restaurants, Cafes & Bars',
+      'Hotels & Resorts',
+      'Shopping Malls',
+      'Corporate Offices & Workspaces'
     ]
 
     // First, try to extract regions and segments from loaded customer data
     if (customerData.length > 0) {
       const uniqueRegions = [...new Set(customerData.map(d => d.region))].filter(r => r && r !== 'Unknown')
       const uniqueSegments = [...new Set(customerData.map(d => d.endUserSegment))].filter(s => s && s !== 'Unknown')
-      
+
       if (uniqueRegions.length > 0 && uniqueSegments.length > 0) {
         return {
           regions: uniqueRegions.sort(),
@@ -211,9 +215,11 @@ export function CustomerIntelligenceHeatmap({ title, height = 600, filePath }: C
     if (data) {
       // Get regions from dimensions
       const allRegions = data.dimensions.geographies.regions || defaultRegions
-      
-      // Get end user segments from dimensions
-      const endUserDimension = data.dimensions.segments['By End-User']
+
+      // Get end user segments from dimensions (try multiple possible segment type names)
+      const endUserDimension = data.dimensions.segments['By Application / End User']
+        || data.dimensions.segments['By End-User']
+        || data.dimensions.segments['By End User']
       const segments = endUserDimension?.items || []
 
       const allSegments = segments.length > 0 ? [...segments] : [...defaultSegments]
